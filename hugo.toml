@@ -1,0 +1,25 @@
+baseURL = "https://alexandre.github.io/siga-o-verbo/"
+languageCode = "pt-br"
+title = "Siga o Verbo"
+paginate = 10
+
+# Taxonomias e URLs limpas
+[taxonomies]
+  tag = "tags"
+  category = "categorias"
+
+[params]
+  author = "Alexandre"
+  description = "Reflexões, testemunhos e a caminhada diária com Deus. Vivendo os ensinamentos das Escrituras de forma autêntica e serena."
+  subtitle = "Meditações e vida em Deus através da Palavra viva."
+  footerText = "Siga o Verbo © 2026. Feito com simplicidade e reverência."
+  # Tema padrão de visualização: "light", "paper" ou "dark"
+  defaultTheme = "light"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = "github"
+    lineNos = false

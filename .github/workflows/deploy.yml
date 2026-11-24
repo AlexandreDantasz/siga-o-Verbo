@@ -1,0 +1,92 @@
+name: Deploy Siga o Verbo (Pages & VPS)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Permissões necessárias para publicar no GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Permite apenas um deploy concorrente
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build do Blog com Hugo
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Repositório
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Instalar Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      - name: Compilar Site Estático
+        run: hugo --minify
+
+      - name: Salvar Artefato do Build
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      - name: Salvar Artefatos para Deploy VPS
+        uses: actions/upload-artifact@v4
+        with:
+          name: blog-public-files
+          path: ./public/
+          retention-days: 1
+
+  deploy-github-pages:
+    name: Publicar no GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy para GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  deploy-vps:
+    name: Publicar na VPS Ubuntu (Caddy)
+    needs: build
+    runs-on: ubuntu-latest
+    # Só executa quando os Secrets da VPS estiverem configurados no repositório
+    if: "${{ vars.VPS_HOST != '' || secrets.VPS_HOST != '' }}"
+    steps:
+      - name: Baixar Artefato Compilado
+        uses: actions/download-artifact@v4
+        with:
+          name: blog-public-files
+          path: ./public
+
+      - name: Instalar Chave SSH e Sincronizar via Rsync
+        env:
+          SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          SSH_USER: ${{ secrets.VPS_USER || 'deploy' }}
+          HOST: ${{ secrets.VPS_HOST || vars.VPS_HOST }}
+          SSH_PORT: ${{ secrets.VPS_PORT || '22' }}
+          TARGET_DIR: ${{ secrets.VPS_TARGET_DIR || '/var/www/siga-o-verbo' }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -p $SSH_PORT -H $HOST >> ~/.ssh/known_hosts
+          
+          # Sincronização eficiente via rsync (apenas o que mudou)
+          rsync -avz --delete -e "ssh -p $SSH_PORT" ./public/ $SSH_USER@$HOST:$TARGET_DIR/
+          echo "Deploy na VPS concluído com sucesso!"

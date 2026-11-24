@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="100%" height="100%">
+  <defs>
+    <linearGradient id="appleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBFBFD" />
+      <stop offset="50%" stop-color="#F5F5F7" />
+      <stop offset="100%" stop-color="#E5E5EA" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0071E3" />
+      <stop offset="100%" stop-color="#40A4FF" />
+    </linearGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="30" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <rect width="1200" height="630" fill="url(#appleGradient)" />
+  
+  <circle cx="600" cy="300" r="160" fill="#0071E3" opacity="0.08" filter="url(#softGlow)" />
+  
+  <!-- Símbolo estilizado do Livro Aberto / Luz -->
+  <g transform="translate(540, 200)" stroke="url(#accentGrad)" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M 10 110 A 30 30 0 0 1 60 90 L 110 90 A 30 30 0 0 1 110 10 L 60 10 A 30 30 0 0 0 10 30 Z" />
+    <path d="M 110 110 A 30 30 0 0 0 60 90 L 10 90 A 30 30 0 0 0 10 10 L 60 10 A 30 30 0 0 1 110 30 Z" transform="scale(-1, 1) translate(-120, 0)" />
+    <!-- Raios sutis de Luz -->
+    <line x1="60" y1="-25" x2="60" y2="-5" stroke="#0071E3" stroke-width="3" />
+    <line x1="20" y1="-15" x2="30" y2="0" stroke="#0071E3" stroke-width="3" />
+    <line x1="100" y1="-15" x2="90" y2="0" stroke="#0071E3" stroke-width="3" />
+  </g>
+  
+  <text x="600" y="420" font-family="-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" font-size="34" font-weight="700" fill="#1D1D1F" text-anchor="middle" letter-spacing="-0.5">SIGA O VERBO</text>
+  <text x="600" y="465" font-family="Charter, 'New York', Georgia, serif" font-size="20" font-style="italic" fill="#86868B" text-anchor="middle">"Tua palavra é lâmpada para os meus pés e luz para o meu caminho."</text>
+</svg>

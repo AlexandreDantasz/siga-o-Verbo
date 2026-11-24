@@ -1,0 +1,13 @@
+# Arquivos gerados pelo build do Hugo
+public/
+resources/
+.hugo_build.lock
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/

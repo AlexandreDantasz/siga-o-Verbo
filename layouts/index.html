@@ -1,0 +1,36 @@
+{{ define "main" }}
+<section class="hero">
+  <span class="hero-tag">Reflexão & Fé</span>
+  <h1 class="hero-title">{{ .Site.Title }}</h1>
+  <p class="hero-desc">{{ .Site.Params.description }}</p>
+</section>
+
+<section>
+  <h2 class="posts-section-title">Últimas Publicações</h2>
+  <div class="posts-list">
+    {{ range first 6 (where .Site.RegularPages "Section" "posts") }}
+    <article class="post-card">
+      <div class="post-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 de January de 2006" }}</time>
+        <span class="dot">•</span>
+        <span>{{ .ReadingTime }} min de leitura</span>
+      </div>
+      <h3 class="post-card-title">
+        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </h3>
+      <p class="post-card-summary">
+        {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 160 }}{{ end }}
+      </p>
+      <div class="post-card-footer">
+        <a href="{{ .RelPermalink }}" class="read-more-link" aria-label="Ler texto completo de {{ .Title }}">
+          Ler artigo completo
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </article>
+    {{ else }}
+    <p style="color: var(--text-secondary);">Ainda não há publicações cadastradas.</p>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
