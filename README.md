@@ -2,87 +2,136 @@
 
 > *"Lâmpada para os meus pés é tua palavra e luz para o meu caminho." — Salmos 119:105*
 
-Um blog estático ultraleve e minimalista criado para compartilhar reflexões, testemunhos e a caminhada diária com Deus através do Verbo vivo. 
+Um blog estático ultraleve e contemplativo, desenhado com estética predominantemente branca e minimalista, para registrar e compartilhar a caminhada de fé diária com Deus, testemunhos e reflexões bíblicas.
 
-Construído sob uma arquitetura limpa, sem frameworks JavaScript pesados, gerando apenas **HTML/CSS estático puro** servido simultaneamente via **GitHub Pages** e em uma **VPS Ubuntu** com **Caddy Server** e certificado SSL que se renova 100% de forma automática.
-
----
-
-## 📐 Fundamentos de Design e Usabilidade
-
-O design do **Siga o Verbo** foi desenhado seguindo com rigor:
-
-1. **Apple Human Interface Guidelines (HIG):**
-   * **Tipografia limpa e hierarquia clara:** Pilha de fontes do sistema Apple (`-apple-system`, `SF Pro`, e `Charter` / `New York` para o corpo editorial dos artigos).
-   * **Branco puro e respiração:** Layout arejado com margens generosas (grid de 8pt), sem distrações ou anúncios.
-   * **Vibrancy & Blur:** Cabeçalho com transparência fluida e `backdrop-filter: blur(20px)`.
-2. **Heurísticas de Nielsen:**
-   * **Visibilidade do status do sistema:** Metadados claros em cada artigo (data, tempo estimado de leitura, autor e indicador do modo ativo).
-   * **Controle e liberdade do usuário:** Navegação simples de retorno para artigos e página inicial.
-   * **Reconhecimento em vez de lembrança:** Ícones intuitivos e títulos claros.
-   * **Design minimalista:** Conteúdo em primeiro lugar (deferência ao texto).
-   * **Recuperação de erros amigável:** Página 404 acolhedora com versículo bíblico e atalho para a home.
-3. **Lei de Fitts:**
-   * Todos os alvos de clique/toque (botões, seletores de tema, links de leitura) possuem área mínima de **44px × 44px**, garantindo conforto e precisão imediata em smartphones e desktops.
-4. **Modos de Visualização:**
-   * **Modo Claro (Apple White):** Fundo branco puro e cinzas refinados para leitura diurna de alta nitidez.
-   * **Modo Papel (Warm Book):** Tom sépia acolhedor inspirado em páginas de livros físicos para descanso ocular.
-   * **Modo Noturno (Apple Dark):** Preto profundo para leitura noturna confortável.
-   * *Persistência automática em `localStorage` e atalho rápido de teclado (tecla `T`).*
+Construído sob uma arquitetura pura e sem dependências pesadas, gerando apenas **HTML5 semântico, CSS puro e imagens estáticas** servidas simultaneamente pelo **GitHub Pages** e em uma **VPS Ubuntu** com **Caddy Server** e certificado SSL 100% automático.
 
 ---
 
-## 📁 Estrutura do Projeto
+## 📑 Índice da Documentação
 
-```text
-siga-o-verbo/
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          # CI/CD: build e deploy simultâneo (Pages + VPS)
-├── archetypes/
-│   └── posts.md                # Template para novos artigos
-├── content/
-│   ├── posts/                  # Artigos em Markdown
-│   │   └── o-verbo-se-fez-carne.md
-│   └── sobre.md                # Página Sobre
-├── layouts/                    # Layouts HTML semânticos puros (sem dependências)
-│   ├── _default/
-│   │   ├── baseof.html
-│   │   ├── list.html
-│   │   └── single.html
-│   ├── 404.html
-│   └── index.html
-├── static/                     # Arquivos estáticos servidos diretamente
-│   ├── css/
-│   │   └── style.css           # Design System em CSS puro
-│   ├── js/
-│   │   └── theme.js            # Controle dos 3 modos de visualização
-│   └── images/
-│       └── verbo-luz.svg       # Ilustrações e imagens
-├── infra/
-│   ├── Caddyfile               # Configuração do Caddy para VPS com SSL automático
-│   └── setup-vps.sh            # Script de instalação automatizada no Ubuntu
-├── hugo.toml                   # Configuração principal do blog
-└── README.md
+1. [Fundamentos de Design & UX (Nielsen, Apple HIG, Fitts)](#-fundamentos-de-design--ux)
+2. [Estrutura da Home (Baseada no Wireframe)](#-estrutura-da-home-inspirada-no-protótipo)
+3. [Pesquisa Instantânea Reativa](#-pesquisa-instantânea-reativa)
+4. [CLI Interativa Siga o Verbo (`verbo.ps1`)](#-cli-interativa-siga-o-verbo-verbops1)
+5. [Como os Posts são Registrados e Escritos](#-como-os-posts-são-registrados-e-escritos)
+6. [Fluxo Git & Estratégia de Branches](#-fluxo-git--estratégia-de-branches)
+7. [Automação CI/CD (GitHub Actions)](#-automação-cicd-github-actions)
+8. [Hospedagem na VPS (Ubuntu + Caddy + SSL Automático)](#-hospedagem-na-vps-ubuntu--caddy--ssl-automático)
+9. [Mapa de Arquivos do Projeto](#-mapa-de-arquivos-do-projeto)
+
+---
+
+## 🎨 Fundamentos de Design & UX
+
+### 1. Heurísticas de Nielsen
+* **Visibilidade do Status (#1):** Metadados em cada texto (tempo estimado de leitura, data amigável, autor e tags). Na busca, indicação em tempo real de *"X reflexões encontradas"*. O botão de tema reflete o status atual e o próximo via `title` e `aria-label`.
+* **Correspondência com o Mundo Real (#2):** Ícones sutis e metáforas editoriais (livro aberto, luz, sol, lua, pergaminho).
+* **Controle e Liberdade do Usuário (#3):** Botão para limpar a busca, links para retornar ao feed em todos os artigos e alternância livre entre modos visuais.
+* **Consistência e Padrões (#4):** Escala tipográfica uniforme, paleta em variáveis CSS e grid de espaçamento modular de 8pt.
+* **Design Estético e Minimalista (#8):** Foco total no Verbo e na leitura serena, sem poluição de anúncios ou pop-ups.
+* **Prevenção e Recuperação de Erros (#9):** Página [404.html](file:///C:/Users/alexa/OneDrive/Documentos/codes/siga-o-verbo/layouts/404.html) acolhedora com versículo bíblico e retorno direto à home.
+
+### 2. Apple Human Interface Guidelines (HIG)
+* **Tipografia Nativa:** Pilha nativa Apple (`-apple-system`, `SF Pro`) na interface e serifas editoriais consagradas (`Charter`, `New York`, `Georgia`) no corpo dos artigos para leitura relaxante.
+* **Branco Puro & Vibrancy:** Superfícies translúcidas com `backdrop-filter: blur(20px)` na barra superior e nos selos. Paleta clara de alto contraste sem cansar a visão.
+* **Largura Ótima de Leitura:** Textos limitados a 720px de largura máxima (65 a 75 caracteres por linha, padrão editorial).
+
+### 3. Lei de Fitts
+* Todos os elementos interativos (botões de abas, links de navegação, campo de busca, botão de recarregar e botão de tema) possuem dimensões mínimas de **44px × 44px**.
+
+### 4. Modos de Visualização (3 Modos)
+* **Modo Claro (Apple White):** Branco puro para alta claridade diurna.
+* **Modo Papel (Warm Book):** Tom sépia suave inspirado em livros impressos (`#FAF7F2`) para descanso ocular.
+* **Modo Noturno (Apple Dark):** Preto profundo para leitura noturna confortável.
+* *Persistência em `localStorage`, detecção automática de `prefers-color-scheme` e atalho rápido de teclado (tecla `T`).*
+
+---
+
+## 🖼️ Estrutura da Home (Inspirada no Protótipo)
+
+O layout da página inicial reflete a estética de janela de sistema contemplativa:
+* **Janela com Abas e Controles:** Borda arredondada suave, abas (*Início*, *Artigos*, *Sobre*, *Recomendações*) e controles de janela.
+* **Barra de Endereço & Busca:** Símbolo do Verbo à esquerda, campo de pesquisa central e botão de recarregar/limpar à direita.
+* **Banner Zen com Selo Central:** Ilustração vetorial [zen-banner.svg](file:///C:/Users/alexa/OneDrive/Documentos/codes/siga-o-verbo/static/images/zen-banner.svg) com o selo translúcido `siga o verbo.`.
+* **Coluna da Esquerda (Sidebar):**
+  * *Palavra do Dia* (Salmos 46:10).
+  * *Temas & Passagens* (Botões com marcadores `+` que filtram instantaneamente a lista de artigos).
+  * *Sobre o Projeto* (Missão e visão do blog).
+* **Coluna da Direita (Conteúdo Principal):**
+  * *Card do Autor* com avatar, dados chave-valor (*Autor: Alexandre*, *Missão*, *Fundamento*) e links rápidos.
+  * *Card de Recomendações Recentes* em scrollbox suave com leituras sugeridas.
+  * *Feed de Artigos Recentes* com ícone do Verbo, títulos em caixa-alta e resumos.
+
+---
+
+## ⚡ Pesquisa Instantânea Reativa
+
+O script [search.js](file:///C:/Users/alexa/OneDrive/Documentos/codes/siga-o-verbo/static/js/search.js) (< 2 KB, Vanilla JS puro) funciona em tempo real:
+1. Durante o build, o Hugo gera o índice estático [index.json](file:///C:/Users/alexa/OneDrive/Documentos/codes/siga-o-verbo/layouts/_default/index.json).
+2. O JavaScript filtra na memória do navegador conforme o leitor digita.
+3. Clicar nas tags com marcador `+` na barra lateral preenche automaticamente o campo e filtra os posts.
+
+---
+
+## 💻 CLI Interativa Siga o Verbo (`verbo.ps1`)
+
+Uma CLI em PowerShell criada para facilitar o fluxo de escrita com visual moderno inspirado no `agy`:
+
+```powershell
+# Iniciar o assistente interativo para criar novo artigo
+.\verbo.ps1
+
+# Listar todos os artigos cadastrados e seus status (DRAFT ou PUBLISHED)
+.\verbo.ps1 listar
+
+# Criar artigo direto em uma única linha de comando (One-liner)
+.\verbo.ps1 novo -TituloParam "O Silêncio da Manhã" -Descricao "Iniciando o dia em oração." -Tags "Oração, Manhã"
+
+# Ver a tela de ajuda
+.\verbo.ps1 ajuda
 ```
 
 ---
 
-## 🌿 Fluxo Git & Branches
+## ✍️ Como os Posts são Registrados e Escritos
 
-* **`develop`**: Branch padrão de trabalho. Utilize para rascunhar novos textos, testar imagens e layouts.
-* **`main`**: Branch de produção estável. Ao mesclar alterações na `main`, a pipeline de CI/CD é acionada instantaneamente.
+Cada artigo é um arquivo `.md` em `content/posts/` com cabeçalho (Frontmatter):
+
+```markdown
+---
+title: "Título do Seu Artigo"
+date: 2026-11-24T10:00:00-03:00
+draft: true                               # Mude para false para publicar
+description: "Uma breve descrição sobre a reflexão."
+author: "Alexandre"
+image: "images/zen-banner.svg"
+imageAlt: "Descrição da imagem"
+imageCaption: "Legenda opcional"
+tags: ["Oração", "Fé"]
+---
+
+> "Versículo bíblico em destaque." — Referência
+
+Escreva seu texto aqui livremente em Markdown...
+```
+
+---
+
+## 🌿 Fluxo Git & Estratégia de Branches
+
+* **`develop`**: Branch de rascunhos e desenvolvimento. Utilize para rascunhar novos textos e testar layouts.
+* **`main`**: Branch de produção. O push na `main` dispara o build e o deploy automaticamente.
 
 ```bash
-# Para escrever um novo artigo no develop:
+# Trabalhando em um novo texto no develop:
 git checkout develop
-
-# Criar e editar seu post em content/posts/nome-do-post.md
+.\verbo.ps1
 git add .
-git commit -m "feat: novo artigo sobre a oração"
+git commit -m "feat: rascunho de novo artigo"
 git push origin develop
 
-# Quando estiver pronto para publicar em produção:
+# Publicando em produção:
 git checkout main
 git merge develop
 git push origin main
@@ -90,73 +139,74 @@ git push origin main
 
 ---
 
-## ✍️ Como Escrever Novos Posts
+## 🚀 Automação CI/CD (GitHub Actions)
 
-Crie um arquivo `.md` dentro de `content/posts/` (ex: `content/posts/meu-novo-post.md`):
+Configurada em [.github/workflows/deploy.yml](file:///C:/Users/alexa/OneDrive/Documentos/codes/siga-o-verbo/.github/workflows/deploy.yml):
 
-```markdown
----
-title: "Título do Seu Artigo"
-date: 2026-11-24T10:00:00-03:00
-draft: false
-description: "Uma frase concisa que resume a reflexão."
-author: "Alexandre"
-image: "images/nome-da-sua-foto.jpg"
-imageAlt: "Descrição da imagem para acessibilidade"
-imageCaption: "Legenda opcional para a imagem"
-tags: ["Oração", "Testemunho"]
----
-
-Escreva seu texto normalmente em **Markdown**.
-
-### Subtítulo
-
-> "Versículo ou citação em destaque." — Referência
-
-Parágrafo com reflexões e ensinamentos...
-```
-
-Para adicionar fotos e imagens, basta colocá-las em `static/images/` e referenciá-las como `images/nome-da-sua-foto.jpg`.
+1. **GitHub Pages (Ativo e Gratuito):** No seu repositório no GitHub, acesse **Settings** > **Pages** e selecione **GitHub Actions**. O blog é publicado automaticamente.
+2. **VPS Ubuntu (Automático via Rsync):** Se os segredos `VPS_HOST` e `VPS_SSH_KEY` estiverem configurados no repositório, o GitHub sincroniza os arquivos compilados diretamente na sua VPS via SSH.
 
 ---
 
-## 🚀 CI/CD & Deploy Duplo (GitHub Pages + VPS)
+## 🌐 Hospedagem na VPS (Ubuntu + Caddy + SSL Automático)
 
-O workflow em [deploy.yml](file:///.github/workflows/deploy.yml) é acionado no push para a branch `main`:
-
-1. **GitHub Pages (Ativo Imediatamente):**
-   * Vá em **Settings** > **Pages** no seu repositório GitHub.
-   * Em **Source**, selecione **GitHub Actions**.
-   * O site estará acessível no seu endereço `https://<seu-usuario>.github.io/siga-o-verbo/`.
-
-2. **VPS Ubuntu com Caddy (Pronto para quando ativar a VPS):**
-   * No GitHub, acesse **Settings** > **Secrets and variables** > **Actions** e cadastre:
-     * `VPS_HOST`: IP da sua VPS Ubuntu.
-     * `VPS_SSH_KEY`: Chave privada SSH para sincronização segura.
-     * `VPS_USER`: Usuário com acesso de escrita (ex: `deploy` ou `root`).
-     * `VPS_TARGET_DIR`: Caminho na VPS (padrão `/var/www/siga-o-verbo`).
-   * A pipeline executa o `rsync` sobre SSH e atualiza a VPS em segundos.
-
----
-
-## 🌐 Configuração da VPS (Ubuntu + Caddy + SSL Automático)
-
-Quando contratar a VPS Ubuntu:
+Quando você contratar sua VPS Ubuntu:
 
 1. **Instale o Caddy com o script:**
    ```bash
    bash infra/setup-vps.sh
    ```
-2. **Copie o Caddyfile para o servidor:**
+2. **Copie o [Caddyfile](file:///C:/Users/alexa/OneDrive/Documentos/codes/siga-o-verbo/infra/Caddyfile):**
    ```bash
    sudo cp infra/Caddyfile /etc/caddy/Caddyfile
    ```
-3. **Edite o domínio:**
-   Substitua `seu-dominio.com.br` pelo domínio que você registrou.
-4. **Recarregue o Caddy:**
+3. **Edite o domínio e recarregue o servidor:**
    ```bash
+   sudo nano /etc/caddy/Caddyfile
    sudo systemctl reload caddy
    ```
 
 > [!NOTE]
-> O Caddy se conecta diretamente à Let's Encrypt / ZeroSSL, solicita o certificado SSL na primeira requisição e cuida de toda a renovação em background sem que você precise executar scripts adicionais.
+> O **Caddy** obtém e renova o certificado SSL (Let's Encrypt / ZeroSSL) automaticamente no próprio processo. Não é necessário Certbot ou agendamentos cron.
+
+---
+
+## 📁 Mapa de Arquivos do Projeto
+
+```text
+siga-o-verbo/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # CI/CD: build e deploy duplo (Pages + VPS)
+├── archetypes/
+│   └── posts.md                # Template para novos artigos
+├── content/
+│   ├── posts/                  # Artigos em Markdown
+│   │   ├── o-verbo-se-fez-carne.md
+│   │   ├── a-quietude-e-o-lugar-secreto.md
+│   │   └── o-descanso-do-coracao.md
+│   └── sobre.md                # Página Sobre
+├── layouts/                    # Layouts HTML5 puros
+│   ├── _default/
+│   │   ├── baseof.html         # Base com cabeçalho e alternador de modos
+│   │   ├── list.html           # Listagem de artigos
+│   │   ├── single.html         # Visualização editorial do artigo
+│   │   └── index.json          # Gerador do índice da busca
+│   ├── 404.html                # Página 404 acolhedora
+│   └── index.html              # Home page window/cards do wireframe
+├── static/                     # Assets estáticos servidos diretamente
+│   ├── css/
+│   │   └── style.css           # Design System (variáveis CSS e tipografia)
+│   ├── js/
+│   │   ├── theme.js            # Alternador de 3 modos de visualização (tecla T)
+│   │   └── search.js           # Mecanismo de busca instantânea reativo
+│   └── images/
+│       ├── zen-banner.svg      # Ilustração serena do hero
+│       └── verbo-luz.svg       # Ilustração do Verbo
+├── infra/
+│   ├── Caddyfile               # Configuração do Caddy com SSL automático
+│   └── setup-vps.sh            # Script de instalação na VPS Ubuntu
+├── hugo.toml                   # Configurações do blog
+├── verbo.ps1                   # CLI interativa para criar posts e listar status
+└── README.md                   # Documentação completa do projeto
+```
