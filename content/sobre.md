@@ -24,7 +24,7 @@ Então, por que não combinar a prática de um diário com meus conhecimentos t�
 
 ### O propósito
 
-Glorificar o nome dEle por meio de um testemunho. Ensinar aos irmãos que uma vida humana com Deus não significa isenção de erros, de pecados, ou de dúvidas, mas significa ter disposição para aceitá-lo como prioridade, como único Salvador, como a fonte da água viva e como o verbo que deve se expressar em você por amor. 
+Glorificar o nome dEle por meio de um testemunho. Ensinar aos irmãos que uma vida humana com Deus não significa isenção de erros, de pecados, ou de dúvidas, mas significa ter disposição para aceitá-lo como prioridade, como único Salvador, como a fonte da água viva e como o Verbo que deve se expressar em você por amor. 
 
 Você não é perfeito, mas você é filho dEle.
 Ele quer você por perto. 

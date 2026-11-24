@@ -14,8 +14,8 @@ paginate = 10
   category = "categorias"
 
 [params]
-  author = "Alexandre"
-  description = "Reflexões, testemunhos e a caminhada diária com Deus. Vivendo os ensinamentos das Escrituras de forma autêntica e serena."
+  author = "Alexandre Dantas"
+  description = "Jovem de 22 anos que compartilha seu dia a dia na perspectiva de seu viver com Deus."
   subtitle = "Meditações e vida em Deus através da Palavra viva."
   footerText = "Siga o Verbo © 2026. Feito com simplicidade e reverência."
   # Tema padrão de visualização: "light", "paper" ou "dark"
