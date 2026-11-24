@@ -65,8 +65,8 @@ jobs:
     name: Publicar na VPS Ubuntu (Caddy)
     needs: build
     runs-on: ubuntu-latest
-    # Só executa quando os Secrets da VPS estiverem configurados no repositório
-    if: "${{ vars.VPS_HOST != '' || secrets.VPS_HOST != '' }}"
+    # Só executa quando a variável VPS_HOST estiver configurada no repositório
+    if: vars.VPS_HOST != ''
     steps:
       - name: Baixar Artefato Compilado
         uses: actions/download-artifact@v4
@@ -77,10 +77,11 @@ jobs:
       - name: Instalar Chave SSH e Sincronizar via Rsync
         env:
           SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
-          SSH_USER: ${{ secrets.VPS_USER || 'deploy' }}
-          HOST: ${{ secrets.VPS_HOST || vars.VPS_HOST }}
-          SSH_PORT: ${{ secrets.VPS_PORT || '22' }}
-          TARGET_DIR: ${{ secrets.VPS_TARGET_DIR || '/var/www/siga-o-verbo' }}
+          SSH_USER: ${{ vars.VPS_USER || 'deploy' }}
+          HOST: ${{ vars.VPS_HOST }}
+          SSH_PORT: ${{ vars.VPS_PORT || '22' }}
+          TARGET_DIR: ${{ vars.VPS_TARGET_DIR || '/var/www/siga-o-verbo' }}
+        if: env.SSH_KEY != ''
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_KEY" > ~/.ssh/id_rsa
