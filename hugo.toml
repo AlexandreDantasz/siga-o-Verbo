@@ -3,6 +3,11 @@ languageCode = "pt-br"
 title = "Siga o Verbo"
 paginate = 10
 
+[outputs]
+  home = ["HTML", "JSON", "RSS"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+
 # Taxonomias e URLs limpas
 [taxonomies]
   tag = "tags"

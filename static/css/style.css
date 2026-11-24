@@ -28,7 +28,8 @@
   --font-serif: Charter, "New York", "Georgia", "Cambria", Times, serif;
   --font-mono: "SF Mono", Menlo, Consolas, Monaco, monospace;
 
-  --container-max-width: 720px;
+  --container-max-width: 1040px;
+  --article-max-width: 720px;
   --header-height: 64px;
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -634,5 +635,527 @@ img {
   .article-content {
     font-size: 1.1rem;
     line-height: 1.75;
+  }
+}
+
+/* ==========================================================================
+   Wireframe Window & Editorial Card System (Inspirado no protótipo)
+   Princípios: Clean white minimal, Apple HIG, Heurísticas de Nielsen
+   ========================================================================== */
+
+/* Janela Principal em Card com Bordas Suaves */
+.window-frame {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: all var(--transition-speed) ease;
+}
+
+/* 1. Barra de Título / Abas de Navegação Superiores */
+.window-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.85rem;
+}
+
+.window-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  overflow-x: auto;
+}
+
+.window-tab {
+  min-height: 38px;
+  min-width: 44px;
+  padding: 0.35rem 0.95rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-speed) ease;
+}
+
+.window-tab:hover {
+  color: var(--text-primary);
+  border-color: var(--text-tertiary);
+}
+
+.window-tab.active {
+  background-color: var(--text-primary);
+  color: var(--bg-primary);
+  border-color: var(--text-primary);
+  font-weight: 600;
+}
+
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  cursor: default;
+  user-select: none;
+}
+
+/* 2. Barra de Endereço / Campo de Busca Interativa */
+.window-address-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.85rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.address-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+
+.butterfly-glyph {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  fill: none;
+}
+
+.search-input-wrapper {
+  flex: 1;
+}
+
+.search-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  outline: none;
+  padding: 0.35rem 0;
+}
+
+.search-input::placeholder {
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+}
+
+.reload-btn {
+  min-height: 36px;
+  min-width: 44px;
+  padding: 0 0.85rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  transition: all var(--transition-speed) ease;
+}
+
+.reload-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-tertiary);
+  background-color: var(--bg-primary);
+}
+
+/* 3. Banner Hero Zen / Serenidade */
+.zen-banner-wrapper {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.zen-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.zen-badge {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  padding: 0.45rem 1.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .zen-badge {
+  background: rgba(22, 22, 23, 0.88);
+}
+
+.zen-badge span {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+
+/* Feedback de Busca */
+.search-status {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  padding: 0 0.5rem;
+  min-height: 1.2rem;
+}
+
+/* 4. Grade de Duas Colunas */
+.two-column-grid {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+/* Cards Estilo Wireframe */
+.wire-card {
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.wire-card-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 0.85rem;
+}
+
+.sidebar-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sidebar-text {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.compact-verse {
+  margin: 0 0 0.75rem 0;
+  padding: 0.75rem;
+  background-color: var(--quote-bg);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.compact-verse cite {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-style: normal;
+  color: var(--text-tertiary);
+  margin-top: 0.35rem;
+}
+
+/* Lista de Links Extras com Marcadores + */
+.extra-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.topic-tag-btn {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0.4rem;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-speed) ease;
+  min-height: 44px; /* Fitts's Law */
+}
+
+.topic-tag-btn:hover {
+  background-color: var(--bg-secondary);
+  color: var(--accent);
+}
+
+.plus-sign {
+  color: var(--text-tertiary);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* 5. Coluna Principal e Perfil */
+.main-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.profile-card {
+  display: grid;
+  grid-template-columns: 1fr 140px;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.profile-main {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+.profile-avatar {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+.profile-avatar svg {
+  width: 36px;
+  height: 36px;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.info-key {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.info-val {
+  color: var(--text-primary);
+}
+
+.profile-links-col {
+  border-left: 1px solid var(--border-subtle);
+  padding-left: 1.25rem;
+}
+
+.profile-links-title {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.quick-links-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.quick-links-list a {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  transition: color var(--transition-speed) ease;
+  display: inline-block;
+  padding: 0.2rem 0;
+}
+
+.quick-links-list a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* 6. Scrollbox de Recomendações */
+.scrollbox-card {
+  padding: 1.15rem;
+}
+
+.scrollbox-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.scrollbox-content {
+  max-height: 135px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.scrollbox-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scrollbox-content::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 999px;
+}
+
+.scrollbox-item {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  padding: 0.5rem;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+}
+
+.scrollbox-item strong {
+  color: var(--text-primary);
+}
+
+/* 7. Lista de Posts Feed */
+.posts-feed-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.post-card-header-line {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.4rem;
+}
+
+.post-glyph {
+  width: 18px;
+  height: 18px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.8;
+  flex-shrink: 0;
+}
+
+.uppercase-title {
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+}
+
+/* Estado Vazio de Busca */
+.search-empty-state {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--border-color);
+}
+
+.empty-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.empty-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.btn-clear-search {
+  min-height: 44px;
+  padding: 0 1.25rem;
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: #FFFFFF;
+  border: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.btn-clear-search:hover {
+  background-color: var(--accent-hover);
+}
+
+/* Responsividade para Telas Menores */
+@media (max-width: 860px) {
+  .two-column-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .profile-links-col {
+    border-left: none;
+    border-top: 1px solid var(--border-subtle);
+    padding-left: 0;
+    padding-top: 1rem;
   }
 }

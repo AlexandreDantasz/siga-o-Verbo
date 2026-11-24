@@ -1,0 +1,13 @@
+[
+  {{- range $index, $page := where .Site.RegularPages "Section" "posts" -}}
+    {{- if $index }},{{- end }}
+    {
+      "title": {{ $page.Title | jsonify }},
+      "permalink": {{ $page.RelPermalink | jsonify }},
+      "date": {{ $page.Date.Format "02 de January, 2006" | jsonify }},
+      "readingTime": {{ $page.ReadingTime }},
+      "summary": {{ with $page.Description }}{{ . | jsonify }}{{ else }}{{ $page.Summary | plainify | truncate 140 | jsonify }}{{ end }},
+      "tags": [{{ range $tIndex, $tag := $page.Params.tags }}{{ if $tIndex }},{{ end }}{{ $tag | jsonify }}{{ end }}]
+    }
+  {{- end -}}
+]

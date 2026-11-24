@@ -1,36 +1,228 @@
 {{ define "main" }}
-<section class="hero">
-  <span class="hero-tag">Reflexão & Fé</span>
-  <h1 class="hero-title">{{ .Site.Title }}</h1>
-  <p class="hero-desc">{{ .Site.Params.description }}</p>
-</section>
+<!-- Janela Estilo OS / Card Principal Inspirado no Wireframe -->
+<div class="window-frame">
 
-<section>
-  <h2 class="posts-section-title">Últimas Publicações</h2>
-  <div class="posts-list">
-    {{ range first 6 (where .Site.RegularPages "Section" "posts") }}
-    <article class="post-card">
-      <div class="post-meta">
-        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 de January de 2006" }}</time>
-        <span class="dot">•</span>
-        <span>{{ .ReadingTime }} min de leitura</span>
-      </div>
-      <h3 class="post-card-title">
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-      </h3>
-      <p class="post-card-summary">
-        {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 160 }}{{ end }}
-      </p>
-      <div class="post-card-footer">
-        <a href="{{ .RelPermalink }}" class="read-more-link" aria-label="Ler texto completo de {{ .Title }}">
-          Ler artigo completo
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </article>
-    {{ else }}
-    <p style="color: var(--text-secondary);">Ainda não há publicações cadastradas.</p>
-    {{ end }}
+  <!-- Barra de Título / Abas de Navegação Superiores -->
+  <div class="window-titlebar">
+    <div class="window-tabs" role="tablist">
+      <a href="{{ "/" | relURL }}" class="window-tab active">Início</a>
+      <a href="{{ "posts/" | relURL }}" class="window-tab">Artigos</a>
+      <a href="{{ "sobre/" | relURL }}" class="window-tab">Sobre</a>
+      <a href="#recomendacoes" class="window-tab">Recomendações</a>
+    </div>
+
+    <!-- Controles de Janela / Feedback Visual -->
+    <div class="window-controls" aria-hidden="true">
+      <span class="control-btn minimize" title="Minimizar">−</span>
+      <span class="control-btn close" title="Fechar">×</span>
+    </div>
   </div>
-</section>
+
+  <!-- Barra de Endereço / Campo de Busca Interativa Instantânea -->
+  <div class="window-address-bar">
+    <div class="address-icon" title="Siga o Verbo">
+      <!-- Ícone Borboleta/Verbo Estilizado do Wireframe -->
+      <svg class="butterfly-glyph" viewBox="0 0 24 24">
+        <path d="M12 4C10 2 6 2 4 5C2 8 4 12 12 14M12 4C14 2 18 2 20 5C22 8 20 12 12 14M12 14V21M12 14C10 16 7 17 5 19M12 14C14 16 17 17 19 19" />
+      </svg>
+    </div>
+
+    <div class="search-input-wrapper">
+      <input 
+        type="text" 
+        id="site-search-input" 
+        class="search-input" 
+        placeholder="Pesquisar reflexões, versículos ou palavras-chave..." 
+        aria-label="Pesquisar reflexões no blog"
+        autocomplete="off"
+      />
+    </div>
+
+    <button type="button" id="search-reload-btn" class="reload-btn" title="Limpar busca e recarregar">
+      <span>Recarregar</span>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+    </button>
+  </div>
+
+  <!-- Banner Hero Zen / Serenidade -->
+  <div class="zen-banner-wrapper">
+    <img src="{{ "images/zen-banner.svg" | relURL }}" alt="Cenário de montanhas e serenidade" class="zen-banner-img" />
+    <div class="zen-badge">
+      <span>siga o verbo.</span>
+    </div>
+  </div>
+
+  <!-- Feedback de Status de Busca (Nielsen Heuristic #1) -->
+  <div id="search-status-feedback" class="search-status" aria-live="polite"></div>
+
+  <!-- Grade de Conteúdo em Duas Colunas (Conforme Wireframe) -->
+  <div class="two-column-grid">
+
+    <!-- COLUNA DA ESQUERDA: Cards Informativos, Tópicos e Propósito -->
+    <aside class="sidebar-column">
+      
+      <!-- Card 1: Palavra do Dia / Destaque -->
+      <section class="wire-card">
+        <h2 class="wire-card-title">PALAVRA DO DIA</h2>
+        <div class="wire-card-body">
+          <blockquote class="compact-verse">
+            "Aquietai-vos e sabei que eu sou Deus; serei exaltado entre as nações, serei exaltado sobre a terra."
+            <cite>— Salmos 46:10</cite>
+          </blockquote>
+          <p class="sidebar-text">
+            No meio de tanta pressa, o convite de hoje é desacelerar e repousar na certeza de que o Senhor cuida de cada detalhe.
+          </p>
+        </div>
+      </section>
+
+      <!-- Card 2: Temas / Extra Links com Marcadores + -->
+      <section class="wire-card">
+        <h2 class="wire-card-title">TEMAS & PASSAGENS</h2>
+        <ul class="extra-links-list">
+          <li>
+            <button type="button" class="topic-tag-btn" data-tag="Oração">
+              <span class="plus-sign">+</span> Oração no Secreto
+            </button>
+          </li>
+          <li>
+            <button type="button" class="topic-tag-btn" data-tag="Fé">
+              <span class="plus-sign">+</span> Fé e Confiança
+            </button>
+          </li>
+          <li>
+            <button type="button" class="topic-tag-btn" data-tag="Graça">
+              <span class="plus-sign">+</span> A Graça Redentora
+            </button>
+          </li>
+          <li>
+            <button type="button" class="topic-tag-btn" data-tag="Evangelho">
+              <span class="plus-sign">+</span> O Verbo Vivo
+            </button>
+          </li>
+          <li>
+            <button type="button" class="topic-tag-btn" data-tag="Quietude">
+              <span class="plus-sign">+</span> Paz na Tempestade
+            </button>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Card 3: Propósito / Inspiração -->
+      <section class="wire-card">
+        <h2 class="wire-card-title">SOBRE O PROJETO</h2>
+        <div class="wire-card-body">
+          <p class="sidebar-text">
+            Um refúgio digital simples e leve. Sem propagandas, sem algoritmos invasivos. Apenas a Palavra compartilhada de coração para coração.
+          </p>
+        </div>
+      </section>
+    </aside>
+
+    <!-- COLUNA DA DIREITA: Perfil do Autor, Scrollbox de Recomendações e Lista de Posts -->
+    <section class="main-column">
+
+      <!-- Card de Perfil / Autor (Estilo wireframe com avatar e links) -->
+      <div class="wire-card profile-card">
+        <div class="profile-main">
+          <div class="profile-avatar" aria-label="Avatar do Autor">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            </svg>
+          </div>
+          <div class="profile-info">
+            <div class="info-row">
+              <span class="info-key">Autor:</span>
+              <span class="info-val">{{ .Site.Params.author }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Missão:</span>
+              <span class="info-val">Viver e testemunhar a Palavra</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Fundamento:</span>
+              <span class="info-val">Sagradas Escrituras</span>
+            </div>
+            <div class="info-row">
+              <span class="info-key">Ambiente:</span>
+              <span class="info-val">Silêncio & Reflexão</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-links-col">
+          <h3 class="profile-links-title">Links Úteis</h3>
+          <ul class="quick-links-list">
+            <li><a href="{{ "posts/" | relURL }}">Todos os Artigos</a></li>
+            <li><a href="{{ "sobre/" | relURL }}">Sobre o Blog</a></li>
+            <li><a href="https://www.bible.com/pt" target="_blank" rel="noopener noreferrer">Bíblia Online</a></li>
+            <li><a href="{{ "/" | relURL }}">Início</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Caixa de Recomendação em Destaque (Scrollbox do Wireframe) -->
+      <section id="recomendacoes" class="wire-card scrollbox-card">
+        <div class="scrollbox-header">
+          <svg class="post-glyph" viewBox="0 0 24 24">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+          <h2 class="wire-card-title" style="margin-bottom: 0;">RECOMENDAÇÕES PARA O SEU CORAÇÃO</h2>
+        </div>
+        <div class="scrollbox-content" tabindex="0" role="region" aria-label="Lista de leituras recomendadas">
+          <p class="scrollbox-item">
+            <strong>1. O Evangelho de João:</strong> Uma leitura essencial para compreender a profundidade do Verbo que se fez carne e habitou entre nós, cheio de graça e de verdade.
+          </p>
+          <p class="scrollbox-item">
+            <strong>2. A Prática da Oração Silenciosa:</strong> Dedicar 10 minutos diários em quietude perante o Senhor renova as forças e restaura a clareza mental.
+          </p>
+          <p class="scrollbox-item">
+            <strong>3. Salmos de Consolo:</strong> Leituras recomendadas para noites de incerteza: Salmo 23, Salmo 91 e Salmo 121.
+          </p>
+        </div>
+      </section>
+
+      <!-- Lista de Posts com Ícones de Destaque -->
+      <section class="posts-feed">
+        <div id="home-posts-list" class="posts-feed-container">
+          {{ range (where .Site.RegularPages "Section" "posts") }}
+          <article class="post-card">
+            <div class="post-card-header-line">
+              <!-- Ícone Borboleta / Símbolo do Wireframe -->
+              <svg class="post-glyph" viewBox="0 0 24 24">
+                <path d="M12 4C10 2 6 2 4 5C2 8 4 12 12 14M12 4C14 2 18 2 20 5C22 8 20 12 12 14M12 14V21M12 14C10 16 7 17 5 19M12 14C14 16 17 17 19 19" />
+              </svg>
+              <h3 class="post-card-title uppercase-title">
+                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+              </h3>
+            </div>
+            
+            <div class="post-meta">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 de January de 2006" }}</time>
+              <span class="dot">•</span>
+              <span>{{ .ReadingTime }} min de leitura</span>
+            </div>
+
+            <p class="post-card-summary">
+              {{ with .Description }}{{ . }}{{ else }}{{ .Summary | truncate 160 }}{{ end }}
+            </p>
+
+            <div class="post-card-footer">
+              <a href="{{ .RelPermalink }}" class="read-more-link" aria-label="Ler texto completo de {{ .Title }}">
+                Ler artigo completo
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+          {{ else }}
+          <p style="color: var(--text-secondary); padding: 1.5rem;">Nenhuma reflexão publicada ainda.</p>
+          {{ end }}
+        </div>
+      </section>
+
+    </section>
+  </div>
+</div>
+
+<!-- Script de Busca Instantânea -->
+<script src="{{ "js/search.js" | relURL }}"></script>
 {{ end }}

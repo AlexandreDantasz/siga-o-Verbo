@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 320" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBFBFD" />
+      <stop offset="60%" stop-color="#F0F0F3" />
+      <stop offset="100%" stop-color="#E5E5EA" />
+    </linearGradient>
+    <linearGradient id="mountain1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#C7C7CC" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#E5E5EA" stop-opacity="0.1" />
+    </linearGradient>
+    <linearGradient id="mountain2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8E8E93" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#D1D1D6" stop-opacity="0.2" />
+    </linearGradient>
+    <linearGradient id="mountain3" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#48484A" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#8E8E93" stop-opacity="0.1" />
+    </linearGradient>
+    <filter id="softMist" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="15" />
+    </filter>
+  </defs>
+
+  <!-- Fundo do céu sereno -->
+  <rect width="1000" height="320" fill="url(#skyGrad)" />
+
+  <!-- Sol / Luz suave da manhã -->
+  <circle cx="500" cy="120" r="80" fill="#FFFFFF" opacity="0.8" filter="url(#softMist)" />
+
+  <!-- Camada de Montanhas Distantes -->
+  <path d="M-50 260 Q 200 130 450 240 T 950 170 Q 1050 200 1100 270 L 1100 320 L -50 320 Z" fill="url(#mountain1)" />
+
+  <!-- Camada de Montanhas Médias -->
+  <path d="M-20 280 Q 150 160 380 250 Q 620 180 820 260 Q 950 220 1050 290 L 1050 320 L -20 320 Z" fill="url(#mountain2)" />
+
+  <!-- Camada de Montanhas Próximas com Pinheiros Sutis -->
+  <path d="M0 300 Q 120 220 280 280 Q 480 250 700 290 Q 880 260 1000 310 L 1000 320 L 0 320 Z" fill="url(#mountain3)" />
+
+  <!-- Pássaros ao longe -->
+  <g fill="none" stroke="#636366" stroke-width="2" stroke-linecap="round">
+    <path d="M 720 100 Q 730 92 740 100 Q 750 92 760 100" />
+    <path d="M 770 120 Q 778 114 786 120 Q 794 114 802 120" opacity="0.7" />
+    <path d="M 680 130 Q 687 124 694 130 Q 701 124 708 130" opacity="0.6" />
+  </g>
+
+  <!-- Ramos delicados de folhas / lírio d'água no canto esquerdo -->
+  <g stroke="#3A3A3C" stroke-width="2" fill="none" opacity="0.65">
+    <path d="M 60 320 Q 90 240 70 180 Q 60 210 50 320" />
+    <path d="M 85 240 Q 120 210 140 230 Q 110 245 85 240" fill="#48484A" fill-opacity="0.1" />
+    <path d="M 65 210 Q 30 190 20 215 Q 45 220 65 210" fill="#48484A" fill-opacity="0.1" />
+  </g>
+
+  <!-- Ramos no canto direito -->
+  <g stroke="#3A3A3C" stroke-width="2" fill="none" opacity="0.65">
+    <path d="M 940 320 Q 910 230 930 170" />
+    <path d="M 920 230 Q 880 210 870 230 Q 900 240 920 230" fill="#48484A" fill-opacity="0.1" />
+  </g>
+</svg>
