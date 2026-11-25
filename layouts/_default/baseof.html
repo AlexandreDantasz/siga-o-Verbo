@@ -20,7 +20,7 @@
 <body>
   <header class="site-header">
     <div class="header-container">
-      <a href="{{ "/" | relURL }}" class="brand-link" aria-label="Siga o Verbo - Início">
+      <a href="{{ "" | relURL }}" class="brand-link" aria-label="Siga o Verbo - Início">
         <!-- Ícone minimalista de Livro/Verbo Aberto -->
         <svg class="brand-icon" viewBox="0 0 24 24">
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
@@ -30,9 +30,9 @@
       </a>
 
       <nav class="nav-group" aria-label="Navegação principal">
-        <a href="{{ "/" | relURL }}" class="nav-link {{ if .IsHome }}active{{ end }}">Início</a>
+        <a href="{{ "" | relURL }}" class="nav-link {{ if .IsHome }}active{{ end }}">Início</a>
         <a href="{{ "posts/" | relURL }}" class="nav-link {{ if eq .Section "posts" }}active{{ end }}">Artigos</a>
-        <a href="{{ "sobre/" | relURL }}" class="nav-link {{ if eq .RelPermalink "/sobre/" }}active{{ end }}">Sobre</a>
+        <a href="{{ "sobre/" | relURL }}" class="nav-link {{ if eq .RelPermalink ("sobre/" | relURL) }}active{{ end }}">Sobre</a>
         
         <!-- Botão de Alternar Modo de Visualização (Lei de Fitts: min 44x44px) -->
         <button id="theme-toggle-btn" class="theme-switch-btn" type="button" aria-label="Alternar modo de leitura">

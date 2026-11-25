@@ -5,6 +5,8 @@
  */
 
 (function () {
+  const currentScript = document.currentScript;
+  const searchIndexUrl = (currentScript && currentScript.dataset.indexUrl) || 'index.json';
   let searchIndex = [];
   let postsContainer = null;
   let defaultHtml = '';
@@ -12,7 +14,7 @@
 
   async function loadSearchIndex() {
     try {
-      const response = await fetch('/index.json');
+      const response = await fetch(searchIndexUrl);
       if (response.ok) {
         searchIndex = await response.json();
       }

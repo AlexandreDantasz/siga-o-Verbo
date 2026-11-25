@@ -5,7 +5,7 @@
   <!-- Barra de Título / Abas de Navegação Superiores -->
   <div class="window-titlebar">
     <div class="window-tabs" role="tablist">
-      <a href="{{ "/" | relURL }}" class="window-tab active">Início</a>
+      <a href="{{ "" | relURL }}" class="window-tab active">Início</a>
       <a href="{{ "posts/" | relURL }}" class="window-tab">Artigos</a>
       <a href="{{ "sobre/" | relURL }}" class="window-tab">Sobre</a>
       <a href="#recomendacoes" class="window-tab">Recomendações</a>
@@ -63,21 +63,7 @@
     <!-- COLUNA DA ESQUERDA: Cards Informativos, Tópicos e Propósito -->
     <aside class="sidebar-column">
       
-      <!-- Card 1: Palavra do Dia / Destaque -->
-      <section class="wire-card">
-        <h2 class="wire-card-title">PALAVRA DO DIA</h2>
-        <div class="wire-card-body">
-          <blockquote class="compact-verse">
-            "Aquietai-vos e sabei que eu sou Deus; serei exaltado entre as nações, serei exaltado sobre a terra."
-            <cite>— Salmos 46:10</cite>
-          </blockquote>
-          <p class="sidebar-text">
-            No meio de tanta pressa, o convite de hoje é desacelerar e repousar na certeza de que o Senhor cuida de cada detalhe.
-          </p>
-        </div>
-      </section>
-
-      <!-- Card 2: Temas / Extra Links com Marcadores + -->
+      <!-- Card 1: Temas / Extra Links com Marcadores + -->
       <section class="wire-card">
         <h2 class="wire-card-title">TEMAS & PASSAGENS</h2>
         <ul class="extra-links-list">
@@ -149,7 +135,7 @@
             <li><a href="{{ "posts/" | relURL }}">Todos os Artigos</a></li>
             <li><a href="{{ "sobre/" | relURL }}">Sobre o Blog</a></li>
             <li><a href="https://www.bible.com/pt" target="_blank" rel="noopener noreferrer">Bíblia Online</a></li>
-            <li><a href="{{ "/" | relURL }}">Início</a></li>
+            <li><a href="{{ "" | relURL }}">Início</a></li>
           </ul>
         </div>
       </div>
@@ -212,5 +198,5 @@
 </div>
 
 <!-- Script de Busca Instantânea -->
-<script src="{{ "js/search.js" | relURL }}"></script>
+<script src="{{ "js/search.js" | relURL }}" data-index-url="{{ "index.json" | relURL }}"></script>
 {{ end }}
